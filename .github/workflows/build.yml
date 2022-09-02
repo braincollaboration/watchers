@@ -37,6 +37,6 @@ jobs:
       - name: Build
         run: dotnet build --no-restore --configuration Release $(pwd)/Watchers.All.sln
       - name: Run tests
-        run: dotnet test --no-restore --no-build --configuration Release $(pwd)/Watchers.All.sln 2>&1
+        run: dotnet test --no-restore --no-build --configuration Release $(pwd)/Watchers.All.sln
 
           
