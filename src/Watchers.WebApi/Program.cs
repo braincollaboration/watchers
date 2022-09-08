@@ -15,6 +15,7 @@ builder.Services.AddSingleton<ITelegramBotClient>(x =>
 builder.Services.AddHostedService<XdDesignCheckBot>();
 
 var app = builder.Build();
+fgdfgdfg
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
