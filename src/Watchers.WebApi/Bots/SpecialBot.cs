@@ -51,7 +51,7 @@ namespace Watchers.WebApi.Bots
             }
         }
 
-        private string CreateAnswer(string message) 
+        public string CreateAnswer(string message) 
         {
             if (message == "/start") 
                 return "Enter link web page here!";

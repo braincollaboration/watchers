@@ -1,15 +1,29 @@
+using FluentAssertions;
+using Watchers.WebApi.Bots;
+
 namespace Watchers.UnitTests;
 
 public class Tests
 {
-    [SetUp]
-    public void Setup()
+    
+
+    [Test]
+    public void Test_CreateAnswer_ShouldReturs_EnterLinkWebPageHere()
     {
+        var serviceBot = new ExternalService(null);
+
+        var message = serviceBot.CreateAnswer("/start");
+
+        message.Should().BeEquivalentTo("Enter link web page here!");
     }
 
     [Test]
-    public void Test1()
+    public void Test_CreateAnswer_ShouldBeCorrect_WhenMessageContains_http()
     {
-        Assert.Pass();
+        var serviceBot = new ExternalService(null);
+
+        var message = serviceBot.CreateAnswer("http");
+
+        message.Should().BeEquivalentTo("You should enter key word from website to help me. For example: out of stock");
     }
 }
