@@ -3,10 +3,9 @@ using Watchers.WebApi.Bots;
 
 namespace Watchers.UnitTests;
 
-public class Tests
+[TestFixture]
+public class CreateAnswerTests
 {
-    
-
     [Test]
     public void Test_CreateAnswer_ShouldReturs_EnterLinkWebPageHere()
     {

@@ -8,46 +8,33 @@ namespace Watchers.WebApi.Bots
     public class ExternalService
     {
         private readonly ITelegramBotClient _bot;
-        private string _keyWord;
 
         public ExternalService(ITelegramBotClient bot)
         {
             _bot = bot;
         }
 
-        public async Task Get()
+        public async Task ReceiveMessage()
         {
             await _bot.ReceiveAsync(HandleUpdateAsync,
-                                    HandleErrorAsync,
-                                    new ReceiverOptions());
+                (_, _, _) => Task.CompletedTask,
+                new ReceiverOptions());
         }
 
-        public async Task Send()
+        public async Task Send(string charId, string message)
         {
             await _bot.SendChatActionAsync(new ChatId("432228649"), ChatAction.Typing);
-            await _bot.SendTextMessageAsync(new ChatId("432228649"), "");
-
-
-        }
-
-        public static Task HandleErrorAsync(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)
-        {
-            // Некоторые действия
-
-
-            return Task.CompletedTask;
+            await _bot.SendTextMessageAsync(new ChatId(charId), message);
         }
 
 
         private async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
         {
-       
             if (update.Type == UpdateType.Message)
             {
                 var answer = CreateAnswer(update.Message.Text.ToLower());
 
                 await botClient.SendTextMessageAsync(update.Message.Chat, answer, cancellationToken: cancellationToken);
-
             }
         }
 
