@@ -8,6 +8,7 @@ namespace Watchers.WebApi.Bots
     public class ExternalService
     {
         private readonly ITelegramBotClient _bot;
+        private string _keyWord;
 
         public ExternalService(ITelegramBotClient bot)
         {
@@ -45,13 +46,8 @@ namespace Watchers.WebApi.Bots
             {
                 var answer = CreateAnswer(update.Message.Text.ToLower());
 
-                var message = update.Message;
-                if (message!.Text!.ToLower() == "/start")
-                {
-                    await botClient.SendTextMessageAsync(message.Chat, "Enter link web page here!", cancellationToken: cancellationToken);
-                    return;
-                }
-                await botClient.SendTextMessageAsync(message.Chat, "Привет-привет!!", cancellationToken: cancellationToken);
+                await botClient.SendTextMessageAsync(update.Message.Chat, answer, cancellationToken: cancellationToken);
+
             }
         }
 
@@ -60,11 +56,10 @@ namespace Watchers.WebApi.Bots
             if (message == "/start") 
                 return "Enter link web page here!";
             
-            if (message.Contains("http")) 
-                return " Enter key word";
+            if (message.Contains("http"))
+                return "You should enter key word from website to help me. For example: out of stock";
 
             return "";
-            
         }
 
 
