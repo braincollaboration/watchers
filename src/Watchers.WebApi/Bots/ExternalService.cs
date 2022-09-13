@@ -31,7 +31,7 @@ namespace Watchers.WebApi.Bots
         {
             _bot = bot;
         }
-
+       
         public async Task ReceiveMessage()
         {
             await _bot.ReceiveAsync(HandleUpdateAsync,
@@ -94,48 +94,6 @@ namespace Watchers.WebApi.Bots
                 }
 
             }
-        }
-
-        public string CreateAnswer(string message) 
-        {
-            if (message == "/start") 
-                return "Enter the link to the web page here";
-
-            if (message.Contains("http"))
-            {
-                //var page = GetWebPageCode();
-
-                //return  page.AsyncState as string;
-
-
-
-                //string responseBody = await response.Content.ReadAsStringAsync();
-                //return new Task() { AsyncState =  responseBody };
-                //return "You should enter the key word from website to help me. For example: out of stock";
-            }
-
-            return "I don't understand you";
-        }
-
-        //private async Task GetWebPageCode()
-        //{
-        //    //HttpClient client = new HttpClient();
-        //    //HttpResponseMessage response;
-        //    //try
-        //    //{
-        //    //    response = await client.GetAsync("http://www.contoso.com/");
-        //    //    response.EnsureSuccessStatusCode();
-        //    //}
-        //    //catch 
-        //    //{
-        //    //    await response.Content.ReadAsStringAsync();
-        //    //}
-            
-
-
-
-        //    //string responseBody = await response.Content.ReadAsStringAsync();
-        //    //return new Task() { AsyncState =  responseBody };
-        //}
+        }      
     }
 }
