@@ -12,6 +12,9 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<ITelegramBotClient>(x =>
     new TelegramBotClient("5676246626:AAFn1RHQ6zXGzjrcD2Hi_9839FiRbbFxQ_4"));
+builder.Services.AddSingleton(x =>
+    new ExternalService(new TelegramBotClient("5676246626:AAFn1RHQ6zXGzjrcD2Hi_9839FiRbbFxQ_4")));
+
 builder.Services.AddHostedService<XdDesignCheckBot>();
 
 var app = builder.Build();
