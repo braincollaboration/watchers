@@ -8,9 +8,6 @@ namespace Watchers.WebApi.Bots
 {
     public class ExternalService
     {
-        private HashSet<string> _searchKeys = new HashSet<string> {"Нет в наличии", "нет в наличии", "out of stock" };
-        
-
         private readonly ITelegramBotClient _bot;
 
         public ExternalService(ITelegramBotClient bot)
