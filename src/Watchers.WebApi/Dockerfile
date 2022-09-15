@@ -1,20 +1,13 @@
-﻿FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
+﻿FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /app
-EXPOSE 80
-EXPOSE 443
 
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
-WORKDIR /src
-COPY ["src/Watchers.WebApi/Watchers.WebApi.csproj", "Watchers.WebApi/"]
-RUN dotnet restore "src/Watchers.WebApi/Watchers.WebApi.csproj"
-COPY . .
-WORKDIR "/src/Watchers.WebApi"
-RUN dotnet build "Watchers.WebApi.csproj" -c Release -o /app/build
+COPY *.csproj ./
+RUN dotnet restore
 
-FROM build AS publish
-RUN dotnet publish "Watchers.WebApi.csproj" -c Release -o /app/publish
+COPY ./ ./
+RUN dotnet publish --no-restore -c Release -o out
 
-FROM base AS final
+FROM mcr.microsoft.com/dotnet/aspnet:6.0
 WORKDIR /app
-COPY --from=publish /app/publish .
+COPY --from=build /app/out .
 ENTRYPOINT ["dotnet", "Watchers.WebApi.dll"]
