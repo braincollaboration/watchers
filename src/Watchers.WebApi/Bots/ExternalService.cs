@@ -26,7 +26,7 @@ namespace Watchers.WebApi.Bots
         private async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
         {
             
-            if (update.Type == UpdateType.Message && update.Message.Text != null)
+            if (update.Message != null && update.Type == UpdateType.Message && update.Message.Text != null)
             {
                 try
                 {
