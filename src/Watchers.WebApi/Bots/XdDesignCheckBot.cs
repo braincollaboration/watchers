@@ -4,7 +4,7 @@ using Telegram.Bot.Types;
 
 namespace Watchers.WebApi.Bots;
 
-public class XdDesignCheckBot : IHostedService
+public class XdDesignCheckBot : BackgroundService
 {
     private readonly ExternalService _externalService;
 
@@ -14,13 +14,8 @@ public class XdDesignCheckBot : IHostedService
         _externalService = externalService;
     }
 
-    public async Task StartAsync(CancellationToken cancellationToken)
+    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        await _externalService.ReceiveMessage();
-    }
-
-    public Task StopAsync(CancellationToken cancellationToken)
-    {
-        return Task.CompletedTask;
+        await _externalService.ReceiveMessage(stoppingToken);
     }
 }

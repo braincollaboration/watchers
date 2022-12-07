@@ -15,11 +15,13 @@ namespace Watchers.WebApi.Bots
             _bot = bot;
         }
        
-        public async Task ReceiveMessage()
+        public Task ReceiveMessage(CancellationToken cancellationToken)
         {
-            await _bot.ReceiveAsync(HandleUpdateAsync,
-                                (_, _, _) => Task.CompletedTask,
-                                new ReceiverOptions());
+
+            return _bot.ReceiveAsync(HandleUpdateAsync,
+                (_, _, _) => Task.CompletedTask,
+                new ReceiverOptions(),
+                cancellationToken);
 
         }
 
